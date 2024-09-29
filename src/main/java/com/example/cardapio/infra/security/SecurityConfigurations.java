@@ -23,6 +23,8 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/food").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
@@ -41,5 +43,7 @@ public class SecurityConfigurations {
         return new BCryptPasswordEncoder(); //Classe para fazer criptografia da senha com algoritmo de HASH
 
     }
-    }
+
+
 }
+
